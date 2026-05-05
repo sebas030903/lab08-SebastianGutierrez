@@ -1,0 +1,21 @@
+﻿bin/
+obj/
+.vs/
+.idea/
+*.user
+*.suo
+*.cache
+*.log
+
+# Rider
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Configuración local
+appsettings.Development.json
