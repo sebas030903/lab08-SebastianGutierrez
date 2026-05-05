@@ -17,14 +17,7 @@ public class ClientsController : ControllerBase
     [HttpGet("search-by-name")]
     public async Task<IActionResult> GetByName([FromQuery] string name)
     {
-        if (string.IsNullOrWhiteSpace(name))
-        {
-            return BadRequest(new
-            {
-                message = "Debe ingresar un nombre para buscar."
-            });
-        }
-
+     
         var clients = await _clientService.GetByNameAsync(name);
 
         if (!clients.Any())

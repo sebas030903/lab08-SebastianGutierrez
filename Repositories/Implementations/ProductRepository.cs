@@ -31,8 +31,7 @@ public class ProductRepository : IProductRepository
     public async Task<decimal> GetAveragePriceAsync()
     {
         return await _context.Products
-            .Select(p => p.Price)
-            .AverageAsync();
+            .AverageAsync(p => p.Price);
     }
 
     public async Task<List<Product>> GetProductsWithoutDescriptionAsync()
