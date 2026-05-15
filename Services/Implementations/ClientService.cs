@@ -39,4 +39,9 @@ public class ClientService : IClientService
     {
         return await _clientRepository.GetClientsWithOrdersAsync();
     }
+    
+    public async Task<List<ClientProductCountDto>> GetClientsWithProductCountAsync()
+    {
+        return await _clientRepository.GetClientsWithProductCountAsync();
+    }
 }

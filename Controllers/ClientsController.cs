@@ -102,4 +102,24 @@ public class ClientsController : ControllerBase
             data = clients
         });
     }
+    
+    [HttpGet("product-count")]
+    public async Task<IActionResult> GetClientsWithProductCount()
+    {
+        var clients = await _clientService.GetClientsWithProductCountAsync();
+
+        if (!clients.Any())
+        {
+            return NotFound(new
+            {
+                message = "No se encontraron clientes registrados."
+            });
+        }
+
+        return Ok(new
+        {
+            message = "Clientes con total de productos comprados obtenidos correctamente.",
+            data = clients
+        });
+    }
 }

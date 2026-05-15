@@ -70,4 +70,18 @@ public class ClientRepository : IClientRepository
             })
             .ToListAsync();
     }
+    
+    public async Task<List<ClientProductCountDto>> GetClientsWithProductCountAsync()
+    {
+        return await _context.Clients
+            .AsNoTracking()
+            .Select(client => new ClientProductCountDto
+            {
+                ClientName = client.Name,
+                TotalProducts = client.Orders
+                    .Sum(order => order.Orderdetails
+                        .Sum(detail => detail.Quantity))
+            })
+            .ToListAsync();
+    }
 }
