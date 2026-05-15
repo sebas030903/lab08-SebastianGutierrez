@@ -9,4 +9,6 @@ public interface IClientService
     Task<ClientMostOrdersDto?> GetClientWithMostOrdersAsync();
 
     Task<List<ClientByProductDto>> GetClientsByProductIdAsync(int productId);
+    
+    Task<List<ClientOrderDto>> GetClientsWithOrdersAsync();
 }

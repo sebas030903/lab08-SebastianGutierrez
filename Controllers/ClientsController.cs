@@ -82,4 +82,24 @@ public class ClientsController : ControllerBase
             data = clients
         });
     }
+    
+    [HttpGet("with-orders")]
+    public async Task<IActionResult> GetClientsWithOrders()
+    {
+        var clients = await _clientService.GetClientsWithOrdersAsync();
+
+        if (!clients.Any())
+        {
+            return NotFound(new
+            {
+                message = "No se encontraron clientes con pedidos."
+            });
+        }
+
+        return Ok(new
+        {
+            message = "Clientes con sus pedidos obtenidos correctamente.",
+            data = clients
+        });
+    }
 }

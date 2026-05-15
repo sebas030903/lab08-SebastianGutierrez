@@ -10,4 +10,6 @@ public interface IClientRepository
     Task<ClientMostOrdersDto?> GetClientWithMostOrdersAsync();
 
     Task<List<ClientByProductDto>> GetClientsByProductIdAsync(int productId);
+    
+    Task<List<ClientOrderDto>> GetClientsWithOrdersAsync();
 }

@@ -3,6 +3,7 @@ using lab08_SebastianGutierrez.DTOs.Clients;
 using lab08_SebastianGutierrez.Models;
 using lab08_SebastianGutierrez.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using lab08_SebastianGutierrez.DTOs.Orders;
 
 namespace lab08_SebastianGutierrez.Repositories.Implementations;
 
@@ -50,6 +51,22 @@ public class ClientRepository : IClientRepository
                 Email = od.Order.Client.Email,
                 ProductId = od.Product.Productid,
                 ProductName = od.Product.Name
+            })
+            .ToListAsync();
+    }
+    public async Task<List<ClientOrderDto>> GetClientsWithOrdersAsync()
+    {
+        return await _context.Clients
+            .AsNoTracking()
+            .Select(client => new ClientOrderDto
+            {
+                ClientName = client.Name,
+                Orders = client.Orders
+                    .Select(order => new OrderDto
+                    {
+                        OrderId = order.Orderid,
+                        OrderDate = order.Orderdate
+                    }).ToList()
             })
             .ToListAsync();
     }
