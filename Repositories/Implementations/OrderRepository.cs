@@ -1,5 +1,6 @@
 ﻿using lab08_SebastianGutierrez.Data;
 using lab08_SebastianGutierrez.DTOs.Orders;
+using lab08_SebastianGutierrez.DTOs.Products;
 using lab08_SebastianGutierrez.Models;
 using lab08_SebastianGutierrez.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -55,6 +56,27 @@ public class OrderRepository : IOrderRepository
                 ClientName = od.Order.Client.Name,
                 ProductName = od.Product.Name,
                 Quantity = od.Quantity
+            })
+            .ToListAsync();
+    }
+    
+    public async Task<List<OrderDetailsDto>> GetOrdersWithDetailsAsync()
+    {
+        return await _context.Orders
+            .Include(order => order.Orderdetails)
+            .ThenInclude(orderDetail => orderDetail.Product)
+            .AsNoTracking()
+            .Select(order => new OrderDetailsDto
+            {
+                OrderId = order.Orderid,
+                OrderDate = order.Orderdate,
+                Products = order.Orderdetails
+                    .Select(orderDetail => new ProductDto
+                    {
+                        ProductName = orderDetail.Product.Name,
+                        Quantity = orderDetail.Quantity,
+                        Price = orderDetail.Product.Price
+                    }).ToList()
             })
             .ToListAsync();
     }

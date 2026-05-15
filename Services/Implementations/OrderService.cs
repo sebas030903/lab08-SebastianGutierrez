@@ -46,4 +46,9 @@ public class OrderService : IOrderService
     {
         return await _orderRepository.GetAllOrdersDetailsAsync();
     }
+    
+    public async Task<List<OrderDetailsDto>> GetOrdersWithDetailsAsync()
+    {
+        return await _orderRepository.GetOrdersWithDetailsAsync();
+    }
 }

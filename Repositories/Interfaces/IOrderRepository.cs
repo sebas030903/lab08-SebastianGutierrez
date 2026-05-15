@@ -12,4 +12,6 @@ public interface IOrderRepository
     Task<List<Order>> GetOrdersAfterDateAsync(DateTime date);
 
     Task<List<OrderDetailResponseDto>> GetAllOrdersDetailsAsync();
+    
+    Task<List<OrderDetailsDto>> GetOrdersWithDetailsAsync();
 }

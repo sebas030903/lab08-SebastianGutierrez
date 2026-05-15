@@ -109,4 +109,24 @@ public class OrdersController : ControllerBase
             data = details
         });
     }
+    
+    [HttpGet("with-details")]
+    public async Task<IActionResult> GetOrdersWithDetails()
+    {
+        var orders = await _orderService.GetOrdersWithDetailsAsync();
+
+        if (!orders.Any())
+        {
+            return NotFound(new
+            {
+                message = "No se encontraron pedidos con detalles."
+            });
+        }
+
+        return Ok(new
+        {
+            message = "Pedidos con detalles obtenidos correctamente.",
+            data = orders
+        });
+    }
 }
